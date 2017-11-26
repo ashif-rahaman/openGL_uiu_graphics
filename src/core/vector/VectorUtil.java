@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
  */
 public class VectorUtil {
 
+    //tested
     public static double dotProduct(Vector v1, Vector v2) {
 
         double dot = v1.vector[0] * v2.vector[0] + v1.vector[1] * v2.vector[1] + v1.vector[2] * v2.vector[2];
@@ -20,6 +21,7 @@ public class VectorUtil {
         return dot;
     }
 
+    //tested
     public static Vector crossProduct(Vector v1, Vector v2) {
         Vector cross = new Vector();
 
@@ -30,6 +32,7 @@ public class VectorUtil {
         return cross;
     }
 
+    //tested
     public static Vector normalize(Vector v) {
 
         Vector norm = new Vector();

@@ -15,6 +15,7 @@ import java.util.Arrays;
 public class MatrixMaker {
 
     //identity matrix
+    //Tested
     public static TrMatrix identityMatrix() {
 
         TrMatrix trMatrix = new TrMatrix();
@@ -33,6 +34,7 @@ public class MatrixMaker {
     }
 
     //translation matrix
+    //Tested
     public static TrMatrix translationMatrix(double tx, double ty, double tz) {
 
         TrMatrix trMatrix = new TrMatrix();
@@ -55,6 +57,7 @@ public class MatrixMaker {
     }
 
     //scalling matrix
+    //tested
     public static TrMatrix scaleMatrix(double sx, double sy, double sz) {
 
         TrMatrix trMatrix = new TrMatrix();
@@ -124,108 +127,28 @@ public class MatrixMaker {
         return trMatrix;
     }
 
+    //Tested
     public static TrMatrix matrixProduct(TrMatrix m1, TrMatrix m2) {
-        TrMatrix product = new TrMatrix();
+        TrMatrix product = null;
 
-        //row 1
-        product.matrix[0][0]
-                = m1.matrix[0][0] * m2.matrix[0][0]
-                + m1.matrix[0][1] * m2.matrix[1][0]
-                + m1.matrix[0][2] * m2.matrix[2][0]
-                + m1.matrix[0][3] * m2.matrix[3][0];
+        if (m1.matrix[0].length == m2.matrix.length) {
 
-        product.matrix[0][1]
-                = m1.matrix[0][0] * m2.matrix[0][1]
-                + m1.matrix[0][1] * m2.matrix[1][1]
-                + m1.matrix[0][2] * m2.matrix[2][1]
-                + m1.matrix[0][3] * m2.matrix[3][1];
+            product = new TrMatrix();
+            double sum;
+            for (int i = 0; i < m1.matrix.length; i++) {
 
-        product.matrix[0][2]
-                = m1.matrix[0][0] * m2.matrix[0][2]
-                + m1.matrix[0][1] * m2.matrix[1][2]
-                + m1.matrix[0][2] * m2.matrix[2][2]
-                + m1.matrix[0][3] * m2.matrix[3][2];
+                for (int j = 0; j < m2.matrix.length; j++) {
 
-        product.matrix[0][3]
-                = m1.matrix[0][0] * m2.matrix[0][3]
-                + m1.matrix[0][1] * m2.matrix[1][3]
-                + m1.matrix[0][2] * m2.matrix[2][3]
-                + m1.matrix[0][3] * m2.matrix[3][3];
+                    sum = 0;
+                    for (int k = 0; k < m1.matrix[i].length; k++) {
 
-        //row 2
-        product.matrix[1][0]
-                = m1.matrix[1][0] * m2.matrix[0][0]
-                + m1.matrix[1][1] * m2.matrix[1][0]
-                + m1.matrix[1][2] * m2.matrix[2][0]
-                + m1.matrix[1][3] * m2.matrix[3][0];
+                        sum += m1.matrix[i][k] * m2.matrix[k][j];
+                    }
 
-        product.matrix[1][1]
-                = m1.matrix[1][0] * m2.matrix[0][1]
-                + m1.matrix[1][1] * m2.matrix[1][1]
-                + m1.matrix[1][2] * m2.matrix[2][1]
-                + m1.matrix[1][3] * m2.matrix[3][1];
-
-        product.matrix[1][2]
-                = m1.matrix[1][0] * m2.matrix[0][2]
-                + m1.matrix[1][1] * m2.matrix[1][2]
-                + m1.matrix[1][2] * m2.matrix[2][2]
-                + m1.matrix[1][3] * m2.matrix[3][2];
-
-        product.matrix[1][3]
-                = m1.matrix[1][0] * m2.matrix[0][3]
-                + m1.matrix[1][1] * m2.matrix[1][3]
-                + m1.matrix[1][2] * m2.matrix[2][3]
-                + m1.matrix[1][3] * m2.matrix[3][3];
-
-        //row 3
-        product.matrix[2][0]
-                = m1.matrix[2][0] * m2.matrix[0][0]
-                + m1.matrix[2][1] * m2.matrix[1][0]
-                + m1.matrix[2][2] * m2.matrix[2][0]
-                + m1.matrix[2][3] * m2.matrix[3][0];
-
-        product.matrix[2][1]
-                = m1.matrix[2][0] * m2.matrix[0][1]
-                + m1.matrix[2][1] * m2.matrix[1][1]
-                + m1.matrix[2][2] * m2.matrix[2][1]
-                + m1.matrix[2][3] * m2.matrix[3][1];
-
-        product.matrix[2][2]
-                = m1.matrix[2][0] * m2.matrix[0][2]
-                + m1.matrix[2][1] * m2.matrix[1][2]
-                + m1.matrix[2][2] * m2.matrix[2][2]
-                + m1.matrix[2][3] * m2.matrix[3][2];
-
-        product.matrix[2][3]
-                = m1.matrix[2][0] * m2.matrix[0][3]
-                + m1.matrix[2][1] * m2.matrix[1][3]
-                + m1.matrix[2][2] * m2.matrix[2][3]
-                + m1.matrix[2][3] * m2.matrix[3][3];
-
-        //row 4
-        product.matrix[3][0]
-                = m1.matrix[3][0] * m2.matrix[0][0]
-                + m1.matrix[3][1] * m2.matrix[1][0]
-                + m1.matrix[3][2] * m2.matrix[2][0]
-                + m1.matrix[3][3] * m2.matrix[3][0];
-
-        product.matrix[3][1]
-                = m1.matrix[3][0] * m2.matrix[0][1]
-                + m1.matrix[3][1] * m2.matrix[1][1]
-                + m1.matrix[3][2] * m2.matrix[2][1]
-                + m1.matrix[3][3] * m2.matrix[3][1];
-
-        product.matrix[3][2]
-                = m1.matrix[3][0] * m2.matrix[0][2]
-                + m1.matrix[3][1] * m2.matrix[1][2]
-                + m1.matrix[3][2] * m2.matrix[2][2]
-                + m1.matrix[3][3] * m2.matrix[3][2];
-
-        product.matrix[3][3]
-                = m1.matrix[3][0] * m2.matrix[0][3]
-                + m1.matrix[3][1] * m2.matrix[1][3]
-                + m1.matrix[3][2] * m2.matrix[2][3]
-                + m1.matrix[3][3] * m2.matrix[3][3];
+                    product.matrix[i][j] = sum;
+                }
+            }
+        }
 
         return product;
     }
@@ -233,6 +156,13 @@ public class MatrixMaker {
     public static Point pointMatrixProduct(TrMatrix m, Point p) {
 
         Point product = new Point(0, 0, 0);
+
+        for (double[] matrix : m.matrix) {
+
+            for (int j = 0; j < p.point.length; j++) {
+
+            }
+        }
 
         product.point[0]
                 = m.matrix[0][0] * p.point[0]
