@@ -5,9 +5,9 @@
  */
 package main;
 
-import core.stack.MatrixMaker;
-import core.stack.Stack;
 import core.vector.Vector;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  *
@@ -218,6 +218,13 @@ public class TestMain {
             System.out.println();
         }
          */
+        /**
+         * ***********************************************************
+         * Stack is tested here
+         *
+         * ***********************************************************
+         */
+        /*
         Stack stack = new Stack();
 
         stack.push(MatrixMaker.identityMatrix());
@@ -245,7 +252,18 @@ public class TestMain {
 
         stack.push(MatrixMaker.scaleMatrix(1, 2, 2));
         System.out.println(stack.top().toString());
+         */
+ /*
+        Vector v1 = VectorUtil.normalize(VectorUtil.getVector("5 8 2"));
+        vector1 = VectorUtil.scaleVector(vector1, -1);
+        System.out.println(vector1.toString());
+        Vector v2 = VectorUtil.normalize(VectorUtil.getVector("5.3 8 2.5"));
 
+        Vector res = VectorUtil.normalize(VectorUtil.crossProduct(v1, v2));
+
+        System.out.println(res.toString());
+         */
+        NumberFormat formatter = new DecimalFormat("#0.000");
+        System.out.println(formatter.format(40.0));
     }
-
 }

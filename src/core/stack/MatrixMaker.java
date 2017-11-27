@@ -190,4 +190,55 @@ public class MatrixMaker {
         return product;
     }
 
+    public static TrMatrix viewTransforMatrix(Vector eye, Vector look, Vector up) {
+
+        TrMatrix trMatrix = new TrMatrix();
+
+        Vector l = VectorUtil.subtracVector(look, eye);
+        l = VectorUtil.normalize(l);
+
+        Vector r = VectorUtil.crossProduct(l, up);
+        r = VectorUtil.normalize(r);
+
+        Vector u = VectorUtil.crossProduct(r, l);
+        u = VectorUtil.normalize(u);
+
+        Stack stack = new Stack();
+        stack.push(MatrixMaker.translationMatrix(-eye.vector[0], -eye.vector[1], -eye.vector[2]));
+
+        TrMatrix lruMatrix = new TrMatrix();
+        lruMatrix.initialize();
+        lruMatrix.placeValue(r, u, VectorUtil.scaleVector(l, -1));
+
+        trMatrix = MatrixMaker.matrixProduct(stack.top(), lruMatrix);
+
+        return trMatrix;
+    }
+
+    public static TrMatrix projectionMatrix(String projectionInfo) {
+
+        TrMatrix trMatrix = new TrMatrix();
+        double fovX, fovY, aspectRatio, near, far, r, t;
+
+        fovY = Double.parseDouble(projectionInfo.split(" ")[0]);
+        aspectRatio = Double.parseDouble(projectionInfo.split(" ")[1]);
+        near = Double.parseDouble(projectionInfo.split(" ")[2]);
+        far = Double.parseDouble(projectionInfo.split(" ")[3]);
+
+        fovX = fovY * aspectRatio;
+        t = near * Math.tan(Math.toRadians(fovY / 2));
+        r = near * Math.tan(Math.toRadians(fovX / 2));
+
+        //placing the matrix values
+        trMatrix.initialize();
+        trMatrix.matrix[3][3] = 0.0;
+
+        trMatrix.matrix[0][0] = near / r;
+        trMatrix.matrix[1][1] = near / t;
+        trMatrix.matrix[2][2] = -(far + near) / (far - near);
+        trMatrix.matrix[2][3] = -(2 * far * near) / (far - near);
+        trMatrix.matrix[3][2] = -1.0;
+
+        return trMatrix;
+    }
 }

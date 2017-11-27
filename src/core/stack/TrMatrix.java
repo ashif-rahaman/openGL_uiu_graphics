@@ -5,6 +5,8 @@
  */
 package core.stack;
 
+import core.vector.Vector;
+
 /**
  *
  * @author ashif
@@ -15,6 +17,35 @@ public class TrMatrix {
 
     public TrMatrix() {
 
+    }
+
+    public void initialize() {
+
+        for (int i = 0; i < 4; i++) {
+
+            for (int j = 0; j < 4; j++) {
+
+                this.matrix[i][j] = 0.0;
+            }
+        }
+
+        this.matrix[3][3] = 1.0;
+    }
+
+    public void placeValue(Vector v1, Vector v2, Vector v3) {
+
+        for (int i = 0; i < 3; i++) {
+
+            this.matrix[0][i] = v1.vector[i];
+        }
+        for (int i = 0; i < 3; i++) {
+
+            this.matrix[1][i] = v2.vector[i];
+        }
+        for (int i = 0; i < 3; i++) {
+
+            this.matrix[2][i] = v3.vector[i];
+        }
     }
 
     @Override

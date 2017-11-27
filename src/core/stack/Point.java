@@ -5,6 +5,9 @@
  */
 package core.stack;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 /**
  *
  * @author ashif
@@ -29,8 +32,21 @@ public class Point {
         point[3] /= point[3];
     }
 
+    public static Point getPoint(String p) {
+        double x, y, z;
+        x = Double.parseDouble(p.split(" ")[0]);
+        y = Double.parseDouble(p.split(" ")[1]);
+        z = Double.parseDouble(p.split(" ")[2]);
+        Point point = new Point(x, y, z);
+
+        return point;
+    }
+
     @Override
     public String toString() {
-        return "" + point[0] + " " + point[1] + " " + point[2];
+
+        NumberFormat formatter = new DecimalFormat("#0.0000000");
+
+        return "" + formatter.format(point[0]) + " " + formatter.format(point[1]) + " " + formatter.format(point[2]);
     }
 }

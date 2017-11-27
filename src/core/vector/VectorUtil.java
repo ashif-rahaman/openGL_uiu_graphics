@@ -92,6 +92,28 @@ public class VectorUtil {
         return v;
     }
 
+    public static Vector subtracVector(Vector v1, Vector v2) {
+        Vector v = new Vector();
+
+        v.vector[0] = v1.vector[0] - v2.vector[0];
+        v.vector[1] = v1.vector[1] - v2.vector[1];
+        v.vector[2] = v1.vector[2] - v2.vector[2];
+
+        return v;
+    }
+
+    public static Vector getVector(String vectorString) {
+
+        Vector v = new Vector();
+
+        v.vector[0] = Double.parseDouble(vectorString.split(" ")[0]);
+        v.vector[1] = Double.parseDouble(vectorString.split(" ")[1]);
+        v.vector[2] = Double.parseDouble(vectorString.split(" ")[2]);
+
+        return v;
+
+    }
+
     public VectorUtil() {
     }
 }

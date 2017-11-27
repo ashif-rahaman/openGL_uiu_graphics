@@ -9,6 +9,8 @@ import core.stack.MatrixMaker;
 import core.stack.Point;
 import core.stack.Stack;
 import core.stack.TrMatrix;
+import core.vector.Vector;
+import core.vector.VectorUtil;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -25,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
 
         // The name of the file to open.
-        String path = "C:\\Users\\Ashifur\\Desktop\\Graphics\\Assignment_2\\Assignment_2\\test cases\\1";
+        String path = "C:\\Users\\Ashifur\\Desktop\\Graphics\\Assignment_2\\Assignment_2\\test cases\\1\\";
 
         String scene = path + "scene.txt";
         String stage1 = path + "stage1.txt";
@@ -169,6 +171,9 @@ public class Main {
                         break;
                 }
             }
+
+            sceneBufferedReader.close();
+            stage1BufferedWriter.close();
         } catch (FileNotFoundException ex) {
 
         } catch (IOException ex) {
@@ -181,19 +186,130 @@ public class Main {
 
                     sceneFileReader.close();
                 }
-                if (sceneBufferedReader != null) {
-
-                    sceneBufferedReader.close();
-                }
-
                 if (stage1FileWriter != null) {
 
                     stage1FileWriter.close();
                 }
-                if (stage1BufferedWriter != null) {
 
-                    stage1BufferedWriter.close();
+            } catch (IOException e) {
+            }
+        }
+
+        //*********************************************************************************************
+        //Stage 1 to stage 2
+        Vector eye = VectorUtil.getVector(first4lines[0]);
+        Vector look = VectorUtil.getVector(first4lines[1]);
+        Vector up = VectorUtil.getVector(first4lines[2]);
+
+        line = null;
+        scene = path + "stage1.txt";
+        stage1 = path + "stage2.txt";
+
+        try {
+            // FileReader reads text files in the default encoding.
+            sceneFileReader = new FileReader(scene);
+            stage1FileWriter = new FileWriter(stage1);
+
+            // Always wrap FileReader in BufferedReader.
+            sceneBufferedReader = new BufferedReader(sceneFileReader);
+            stage1BufferedWriter = new BufferedWriter(stage1FileWriter);
+
+            TrMatrix matrix = MatrixMaker.viewTransforMatrix(eye, look, up);
+            boolean stop = false;
+            Point currentPoint, resultPoint;
+
+            while ((line = sceneBufferedReader.readLine()) != null && !stop) {
+
+                switch (line) {
+                    case "":
+                        stage1BufferedWriter.newLine();
+                        break;
+                    default:
+                        currentPoint = Point.getPoint(line);
+                        resultPoint = MatrixMaker.pointMatrixProduct(matrix, currentPoint);
+                        stage1BufferedWriter.write(resultPoint.toString());
+                        stage1BufferedWriter.newLine();
+                        break;
                 }
+            }
+
+            sceneBufferedReader.close();
+            stage1BufferedWriter.close();
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+
+        } finally {
+
+            try {
+
+                if (sceneFileReader != null) {
+
+                    sceneFileReader.close();
+                }
+                if (stage1FileWriter != null) {
+
+                    stage1FileWriter.close();
+                }
+
+            } catch (IOException e) {
+            }
+        }
+
+        //*********************************************************************************************
+        //Stage 2 to stage 3
+        line = null;
+        scene = path + "stage2.txt";
+        stage1 = path + "stage3.txt";
+
+        try {
+            // FileReader reads text files in the default encoding.
+            sceneFileReader = new FileReader(scene);
+            stage1FileWriter = new FileWriter(stage1);
+
+            // Always wrap FileReader in BufferedReader.
+            sceneBufferedReader = new BufferedReader(sceneFileReader);
+            stage1BufferedWriter = new BufferedWriter(stage1FileWriter);
+
+            TrMatrix matrix = MatrixMaker.projectionMatrix(first4lines[3]);
+            boolean stop = false;
+            Point currentPoint, resultPoint;
+
+            while ((line = sceneBufferedReader.readLine()) != null && !stop) {
+
+                switch (line) {
+                    case "":
+                        stage1BufferedWriter.newLine();
+                        break;
+                    default:
+                        currentPoint = Point.getPoint(line);
+                        resultPoint = MatrixMaker.pointMatrixProduct(matrix, currentPoint);
+                        resultPoint.scale();
+                        stage1BufferedWriter.write(resultPoint.toString());
+                        stage1BufferedWriter.newLine();
+                        break;
+                }
+            }
+
+            sceneBufferedReader.close();
+            stage1BufferedWriter.close();
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException ex) {
+
+        } finally {
+
+            try {
+
+                if (sceneFileReader != null) {
+
+                    sceneFileReader.close();
+                }
+                if (stage1FileWriter != null) {
+
+                    stage1FileWriter.close();
+                }
+
             } catch (IOException e) {
             }
         }

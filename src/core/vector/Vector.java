@@ -15,4 +15,9 @@ public class Vector {
 
     public Vector() {
     }
+
+    @Override
+    public String toString() {
+        return "" + vector[0] + " " + vector[1] + " " + vector[2];
+    }
 }
