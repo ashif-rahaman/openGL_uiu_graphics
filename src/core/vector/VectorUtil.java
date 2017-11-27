@@ -45,6 +45,7 @@ public class VectorUtil {
         return norm;
     }
 
+    //tested
     public static Vector scaleVector(Vector v, double s) {
 
         Vector resVector = new Vector();
@@ -58,6 +59,8 @@ public class VectorUtil {
 
     public static Vector getRodrigues(Vector x, Vector a, double angle) {
 
+        double radian = Math.toRadians(angle);
+
         Vector rodVector;
 
         Vector v1, v2, v3;
@@ -65,10 +68,10 @@ public class VectorUtil {
         Vector cross = crossProduct(a, x);
         double dot = dotProduct(a, x);
 
-        DecimalFormat df = new DecimalFormat("#.####");
+        DecimalFormat df = new DecimalFormat("#.##########");
 
-        double cosTheta = Double.parseDouble(df.format(Math.cos(angle)));
-        double sinTheta = Double.parseDouble(df.format(Math.sin(angle)));;
+        double cosTheta = Double.parseDouble(df.format(Math.cos(radian)));
+        double sinTheta = Double.parseDouble(df.format(Math.sin(radian)));
 
         v1 = scaleVector(x, cosTheta);
         v2 = scaleVector(a, (1 - cosTheta) * dot);

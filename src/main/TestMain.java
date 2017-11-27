@@ -5,6 +5,8 @@
  */
 package main;
 
+import core.stack.MatrixMaker;
+import core.stack.Stack;
 import core.vector.Vector;
 
 /**
@@ -186,6 +188,64 @@ public class TestMain {
             }
         }
          */
+        /**
+         * ***********************************************************************
+         * Testing point matrix multiplication
+         *
+         * ***********************************************************************
+         */
+        /*
+        TrMatrix trMatrix1 = new TrMatrix();
+        Point p = new Point(10, 12, 1);
+        Random random = new Random();
+
+        //genetaring matrix 1
+        for (int i = 0; i < 4; i++) {
+
+            for (int j = 0; j < 4; j++) {
+
+                trMatrix1.matrix[i][j] = random.nextInt(21) + 1;
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+
+            for (int j = 0; j < 4; j++) {
+
+                System.out.format("%15.10f", trMatrix1.matrix[i][j]);
+            }
+
+            System.out.println();
+        }
+         */
+        Stack stack = new Stack();
+
+        stack.push(MatrixMaker.identityMatrix());
+        System.out.println(stack.top().toString());
+
+        stack.pushPointer();
+
+        stack.push(MatrixMaker.translationMatrix(5, 6, 3));
+        System.out.println(stack.top().toString());
+
+        stack.pushPointer();
+
+        stack.push(MatrixMaker.scaleMatrix(4, 2, 1));
+        System.out.println(stack.top().toString());
+
+        stack.push(MatrixMaker.translationMatrix(3, 1, 2));
+        System.out.println(stack.top().toString());
+
+        stack.popPointer();
+
+        stack.push(MatrixMaker.identityMatrix());
+        System.out.println(stack.top().toString());
+
+        stack.popPointer();
+
+        stack.push(MatrixMaker.scaleMatrix(1, 2, 2));
+        System.out.println(stack.top().toString());
+
     }
 
 }

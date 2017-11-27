@@ -16,16 +16,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/*
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
- */
 /**
  *
  * @author ashif
@@ -35,15 +25,21 @@ public class Main {
     public static void main(String[] args) {
 
         // The name of the file to open.
-        String path = "C:\\Users\\Ashifur\\Desktop\\Graphics\\Assignment 2\\Assignment 2\\test cases\\1";
+        String path = "C:\\Users\\Ashifur\\Desktop\\Graphics\\Assignment_2\\Assignment_2\\test cases\\1";
 
         String scene = path + "scene.txt";
         String stage1 = path + "stage1.txt";
 
-        String[] First4lines = new String[4];
+        String[] first4lines = new String[4];
         Point inputPoints = new Point(0, 0, 0);
         Point outputPoints = new Point(0, 0, 0);
         Stack stack = new Stack();
+
+        FileReader sceneFileReader = null;
+        FileWriter stage1FileWriter = null;
+
+        BufferedReader sceneBufferedReader = null;
+        BufferedWriter stage1BufferedWriter = null;
 
         stack.push(MatrixMaker.identityMatrix());
 
@@ -52,17 +48,17 @@ public class Main {
 
         try {
             // FileReader reads text files in the default encoding.
-            FileReader sceneFileReader = new FileReader(scene);
-            FileWriter stage1FileWriter = new FileWriter(stage1);
+            sceneFileReader = new FileReader(scene);
+            stage1FileWriter = new FileWriter(stage1);
 
             // Always wrap FileReader in BufferedReader.
-            BufferedReader sceneBufferedReader = new BufferedReader(sceneFileReader);
-            BufferedWriter stage1BufferedWriter = new BufferedWriter(stage1FileWriter);
+            sceneBufferedReader = new BufferedReader(sceneFileReader);
+            stage1BufferedWriter = new BufferedWriter(stage1FileWriter);
 
-            First4lines[0] = sceneBufferedReader.readLine();
-            First4lines[1] = sceneBufferedReader.readLine();
-            First4lines[2] = sceneBufferedReader.readLine();
-            First4lines[3] = sceneBufferedReader.readLine();
+            first4lines[0] = sceneBufferedReader.readLine();
+            first4lines[1] = sceneBufferedReader.readLine();
+            first4lines[2] = sceneBufferedReader.readLine();
+            first4lines[3] = sceneBufferedReader.readLine();
 
             boolean stop = false;
             double angle;
@@ -122,18 +118,8 @@ public class Main {
                                 inputPoints.point[1],
                                 inputPoints.point[2]);
 
-                        stackTop = stack.top();
-
-                        System.out.println("Translation Matrix");
-                        stack.printMatrix(trMatrix);
-
-                        trMatrix = MatrixMaker.matrixProduct(stackTop, trMatrix);
-
+                        trMatrix = MatrixMaker.matrixProduct(stack.top(), trMatrix);
                         stack.push(trMatrix);
-
-                        System.out.println("Stack Matrix");
-                        stack.printMatrix(stack.top());
-
                         break;
 
                     case "scale":
@@ -148,17 +134,8 @@ public class Main {
                                 inputPoints.point[1],
                                 inputPoints.point[2]);
 
-                        stackTop = stack.top();
-
-                        System.out.println("Scale Matrix");
-                        stack.printMatrix(trMatrix);
-
-                        trMatrix = MatrixMaker.matrixProduct(stackTop, trMatrix);
-
+                        trMatrix = MatrixMaker.matrixProduct(stack.top(), trMatrix);
                         stack.push(trMatrix);
-
-                        System.out.println("Stack Matrix");
-                        stack.printMatrix(stack.top());
                         break;
 
                     case "rotate":
@@ -169,26 +146,14 @@ public class Main {
                         inputPoints.point[1] = Double.parseDouble(line.split(" ")[2]);
                         inputPoints.point[2] = Double.parseDouble(line.split(" ")[3]);
 
-                        angle = Math.toRadians(angle);
-
                         trMatrix = MatrixMaker.rotationMatrix(
                                 angle,
                                 inputPoints.point[0],
                                 inputPoints.point[1],
                                 inputPoints.point[2]);
 
-                        stackTop = stack.top();
-
-                        System.out.println("Rotate Matrix");
-                        stack.printMatrix(trMatrix);
-
-                        trMatrix = MatrixMaker.matrixProduct(stackTop, trMatrix);
-
+                        trMatrix = MatrixMaker.matrixProduct(stack.top(), trMatrix);
                         stack.push(trMatrix);
-
-                        System.out.println("Stack Matrix");
-                        stack.printMatrix(stack.top());
-
                         break;
 
                     case "push":
@@ -204,16 +169,33 @@ public class Main {
                         break;
                 }
             }
-
-            // Always close files.
-            sceneBufferedReader.close();
-            stage1BufferedWriter.close();
-
         } catch (FileNotFoundException ex) {
 
         } catch (IOException ex) {
 
-        }
+        } finally {
 
+            try {
+
+                if (sceneFileReader != null) {
+
+                    sceneFileReader.close();
+                }
+                if (sceneBufferedReader != null) {
+
+                    sceneBufferedReader.close();
+                }
+
+                if (stage1FileWriter != null) {
+
+                    stage1FileWriter.close();
+                }
+                if (stage1BufferedWriter != null) {
+
+                    stage1BufferedWriter.close();
+                }
+            } catch (IOException e) {
+            }
+        }
     }
 }

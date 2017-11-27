@@ -23,23 +23,6 @@ public class Stack {
     public Stack() {
     }
 
-    //pop 4x4 matrix from stack
-    public TrMatrix pop() {
-
-        if (sp == 1) {
-
-            return matrixes.get(sp - 1);
-        }
-
-        if (sp > 0) {
-
-            sp--;
-            return matrixes.remove(sp);
-        }
-
-        return null;
-    }
-
     //push 4x4 matrix to stack
     public void push(TrMatrix matrix) {
         matrixes.add(matrix);
@@ -56,9 +39,26 @@ public class Stack {
         return null;
     }
 
+    //pop 4x4 matrix from stack
+    public TrMatrix pop() {
+
+        if (sp == 1) {
+
+            return matrixes.get(sp - 1);
+        }
+
+        if (sp > 1) {
+
+            sp--;
+            return matrixes.remove(sp);
+        }
+
+        return null;
+    }
+
     public void pushPointer() {
 
-        pushArray.add(sp);
+        pushArray.add(sp - 1);
         pp++;
     }
 
@@ -73,20 +73,8 @@ public class Stack {
 
                 matrixes.remove(sp);
             }
-        }
-    }
 
-    public void printMatrix(TrMatrix m) {
-
-        for (int i = 0; i < 4; i++) {
-
-            for (int j = 0; j < 4; j++) {
-
-                System.out.print(m.matrix[i][j] + " ");
-            }
-
-            System.out.println();
-            System.out.println();
+            sp++;
         }
     }
 }
